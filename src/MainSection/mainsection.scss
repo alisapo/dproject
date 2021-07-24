@@ -18,18 +18,92 @@
 }
 
 .options {
-  display: flex;
-  flex-direction: column;
+  @include fCol;
 }
 
-.short-options,
-.long-options {
-  display: flex;
-  flex-direction: row;
+.long-options,
+.short-options {
+  @include fRow;
+  @include flexAlign;
+  button {
+    text-transform: uppercase;
+    color: $buttonText;
+    padding: 6px 20px;
+    border-radius: 50px;
+    border: none;
+    &:hover {
+      background: $hoverBackButton;
+      cursor: pointer;
+    }
+  }
+}
+
+.install {
+  background: $backButtonInst;
 }
 
 .long-options {
-  padding-top: 20px;
+  // display: none;
+}
+
+.drag {
+  padding-right: $padding20;
+}
+
+.img-item {
+  margin-right: $padding20;
+  display: flex;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: $borderRaduis;
+    background: linear-gradient(180deg, $buttonText 0%, $buttonText 100%);
+  }
+}
+
+.header-list {
+  padding-right: $padding20;
+  width: 212px;
+  h4,
+  p {
+    margin: 0;
+  }
+}
+
+.item-header {
+  font-weight: 600;
+  font-size: 16px;
+  color: $headerListColor;
+}
+
+.header-list p {
+  color: $subTextColor;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.short-text {
+  color: $mainTextColor;
+  font-size: 16px;
+}
+
+.author {
+  color: $subTextColor;
+  padding-right: $padding20;
+  font-size: 14px;
+  width: 115px;
+}
+
+.section-long-text,
+.section-text {
+  @include fontTextDesktop;
+}
+
+.long-options {
+  padding-top: $padding20;
 }
 
 .long-text,
@@ -38,6 +112,23 @@
   padding-right: 31px;
 }
 
+.long-text {
+  width: 400px;
+}
+
+.second-sec div:nth-child(2),
+.third-sec div:nth-child(2),
+.fourth-sec div:nth-child(2) {
+  padding: 27px 0px;
+}
+
 .fourth-sec {
   padding-right: 14px;
+}
+
+.section-header {
+  font-weight: normal;
+  color: $subTextColor;
+  font-size: 14px;
+  margin: 0;
 }

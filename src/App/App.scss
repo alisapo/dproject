@@ -1,9 +1,17 @@
+@import '../styles/initstyles.scss';
+
 .App {
-  display: flex;
-  flex-direction: column;
-  padding-right: 86px;
-  padding-left: 86px;
-  background-image: url(../styles/001.png);
+  @include fCol;
+  padding: 0px 86px;
+  background-image: url(../styles/001.png),
+    url(../styles/012.png),
+    url(../styles/501.png);
+  background-repeat: no-repeat,
+    no-repeat,
+    no-repeat;
+  background-position: top left,
+    top right,
+    bottom left;
   width: 100%;
   max-width: 1920px;
   height: 100%;

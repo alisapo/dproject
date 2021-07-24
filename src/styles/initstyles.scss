@@ -1,8 +1,22 @@
 $mainTextColor: #565555;
 $subTextColor: #BBBBBB;
+$buttonText: #ffffff;
+$backButtonInst: #0085FF;
+$hoverBackButton: #FF7A00;
+$headerListColor: #2A2A2A;
 $borderRaduis: 10px;
 $inputHeight: 40px;
 $padding20: 20px;
+
+@mixin fRow {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin fCol {
+  display: flex;
+  flex-direction: column;
+}
 
 @mixin flexAlign {
   display: flex;
@@ -15,10 +29,16 @@ $padding20: 20px;
   max-width: 1100px;
   justify-content: space-between;
   align-self: center;
-  border-radius: 2px solid linear-gradient(to-left, #ffffff 100%, #ffffff 0%);
+  border-radius: 2px solid linear-gradient(to-left, $buttonText 100%, $buttonText 0%);
   background: linear-gradient(180deg, rgba(185, 251, 255, 0.2) 0%, rgba(227, 220, 255, 0.2) 100%);
-  border-image-source: linear-gradient(165.4deg, #FFFFFF -10.07%, rgba(255, 255, 255, 0) 89.61%);
+  border-image-source: linear-gradient(165.4deg, $buttonText -10.07%, rgba(255, 255, 255, 0) 89.61%);
   backdrop-filter: blur(30px);
   padding: 20px 20px;
 }
 
+@mixin fontTextDesktop {
+  line-height: 19.09px;
+  font-size: 16px;
+  margin: 0;
+  color: $mainTextColor;
+}
