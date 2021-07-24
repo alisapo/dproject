@@ -4,6 +4,8 @@ $buttonText: #ffffff;
 $backButtonInst: #0085FF;
 $hoverBackButton: #FF7A00;
 $headerListColor: #2A2A2A;
+$myTag: #5241BF;
+$communityTag: #41BFB0;
 $borderRaduis: 10px;
 $inputHeight: 40px;
 $padding20: 20px;
@@ -25,15 +27,19 @@ $padding20: 20px;
 
 @mixin mainSection {
   @include flexAlign;
+  margin-top: 76px;
   width: 100%;
   max-width: 1100px;
   justify-content: space-between;
   align-self: center;
-  border-radius: 2px solid linear-gradient(to-left, $buttonText 100%, $buttonText 0%);
+  flex-direction: column;
+  
+  border-radius: $borderRaduis;
+  border: 2px solid linear-gradient(to-left, $buttonText 100%, $buttonText 0%);
   background: linear-gradient(180deg, rgba(185, 251, 255, 0.2) 0%, rgba(227, 220, 255, 0.2) 100%);
   border-image-source: linear-gradient(165.4deg, $buttonText -10.07%, rgba(255, 255, 255, 0) 89.61%);
   backdrop-filter: blur(30px);
-  padding: 20px 20px;
+  padding: 24px 20px;
 }
 
 @mixin fontTextDesktop {

@@ -1,15 +1,12 @@
 @import '../styles/initstyles.scss';
 
 .filter-section {
-  margin-top: 76px;
-  @include mainSection;
-  border-top-left-radius: $borderRaduis;
-  border-top-right-radius: $borderRaduis;
+  @include flexAlign;
   border-bottom: 1px solid #ffffff;
+  padding-bottom: 20px;
 }
 
 .search-bar {
-  margin-top: 4px;
   @include flexAlign;
   padding-right: $padding20;
   input {
@@ -32,7 +29,6 @@
 }
 
 .sort-button {
-  margin-top: 4px;
   border-radius: $borderRaduis;
   background: #ffffff;
   cursor: pointer;

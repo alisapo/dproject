@@ -2,29 +2,26 @@
 
 .main-section {
   @include mainSection;
-  flex-direction: column;
-  border-bottom-left-radius: $borderRaduis;
-  border-bottom-right-radius: $borderRaduis;
+  border: 2px solid $buttonText;
 }
 
 .item {
   width: 100%;
   max-width: 1060px;
+  border: 1px solid $buttonText;
   border-radius: $borderRaduis;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%),
     linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
-  padding: 0px 20px;
+  padding: 12px 20px;
+  margin-top: 20px;
   @include flexAlign;
-}
-
-.options {
   @include fCol;
 }
 
-.long-options,
 .short-options {
   @include fRow;
   @include flexAlign;
+  justify-content: space-between;
   button {
     text-transform: uppercase;
     color: $buttonText;
@@ -38,16 +35,43 @@
   }
 }
 
+.tags {
+  @include flexAlign;
+  flex-wrap: wrap;
+  width: 150px;
+  .tag {
+    @include flexAlign;
+    cursor: pointer;
+    color: $buttonText;
+    background: $myTag;
+    margin-right: 4px;
+    border-radius: 4px;
+    padding: 0px 3px 2px 3px;
+    min-width: 44px;
+    font-size: 10px;
+    svg {
+      margin-left: 4.27px;
+    }
+  }
+}
+
 .install {
   background: $backButtonInst;
 }
 
 .long-options {
-  // display: none;
+  @include fRow;
+  padding-top: $padding20;
+  padding-bottom: 12px;
+}
+
+.long-options-hide {
+  display: none;
 }
 
 .drag {
   padding-right: $padding20;
+  cursor: pointer;
 }
 
 .img-item {
@@ -100,10 +124,6 @@
 .section-long-text,
 .section-text {
   @include fontTextDesktop;
-}
-
-.long-options {
-  padding-top: $padding20;
 }
 
 .long-text,
