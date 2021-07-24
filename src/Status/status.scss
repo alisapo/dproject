@@ -1,0 +1,39 @@
+@import '../styles/initstyles.scss';
+
+.header {
+  width: 100%;
+  max-width: 1368px;
+  height: 56px;
+  background: linear-gradient(180deg, rgba(185, 251, 255, 0.2) 0%, rgba(227, 220, 255, 0.2) 100%),
+linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%),
+linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+}
+
+.header-status,
+.header-settings {
+  display: flex;
+  align-items: center;
+}
+
+.header-status {
+  span {
+    padding-left: 10.47px;
+    padding-bottom: 7px;
+    color: $subTextColor;
+  }
+  p {
+    padding-left: 4px;
+    padding-bottom: 7px;
+    color: rgb(4, 177, 4);
+  }
+}
+
+.header-settings {
+  @extend .header-status;
+  span {
+    color: $mainTextColor;
+  }
+}

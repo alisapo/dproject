@@ -1,0 +1,43 @@
+@import '../styles/initstyles.scss';
+
+.main-section {
+  @include mainSection;
+  flex-direction: column;
+  border-bottom-left-radius: $borderRaduis;
+  border-bottom-right-radius: $borderRaduis;
+}
+
+.item {
+  width: 100%;
+  max-width: 1060px;
+  border-radius: $borderRaduis;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
+  padding: 0px 20px;
+  @include flexAlign;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+}
+
+.short-options,
+.long-options {
+  display: flex;
+  flex-direction: row;
+}
+
+.long-options {
+  padding-top: 20px;
+}
+
+.long-text,
+.second-sec,
+.third-sec {
+  padding-right: 31px;
+}
+
+.fourth-sec {
+  padding-right: 14px;
+}

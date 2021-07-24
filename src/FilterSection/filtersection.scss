@@ -1,0 +1,47 @@
+@import '../styles/initstyles.scss';
+
+.filter-section {
+  margin-top: 76px;
+  @include mainSection;
+  border-top-left-radius: $borderRaduis;
+  border-top-right-radius: $borderRaduis;
+  border-bottom: 1px solid #ffffff;
+}
+
+.search-bar {
+  margin-top: 4px;
+  @include flexAlign;
+  padding-right: $padding20;
+  input {
+    border: none;
+    padding-left: 10.28px;
+    border-bottom-right-radius: $borderRaduis;
+    border-top-right-radius: $borderRaduis;
+    height: $inputHeight;
+    width: 600px;
+    font-size: 16px;
+    color: $subTextColor;
+  }
+  .search-icon {
+    background: #ffffff;
+    height: $inputHeight;
+    padding: 10px 0px 9px 10.27px;
+    border-bottom-left-radius: $borderRaduis;
+    border-top-left-radius: $borderRaduis;
+  }
+}
+
+.sort-button {
+  margin-top: 4px;
+  border-radius: $borderRaduis;
+  background: #ffffff;
+  cursor: pointer;
+  border: none;
+  height: $inputHeight;
+  color: $mainTextColor;
+  font-size: 16px;
+  width: 210px;
+  padding: 0px 15px 0px 10px;
+  @include flexAlign;
+  justify-content: space-between;
+}
