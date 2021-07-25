@@ -41,15 +41,16 @@
   width: 150px;
   .tag {
     @include flexAlign;
+    justify-content: space-between;
     cursor: pointer;
     color: $buttonText;
     background: $myTag;
-    margin-right: 4px;
+    margin: 0px 4px 10px 0px;
     border-radius: 4px;
     padding: 0px 3px 2px 3px;
-    min-width: 44px;
     font-size: 10px;
     svg {
+      margin-top: 3px;
       margin-left: 4.27px;
     }
   }
