@@ -9,6 +9,9 @@ $communityTag: #41BFB0;
 $borderRaduis: 10px;
 $inputHeight: 40px;
 $padding20: 20px;
+$navyBlueLG: linear-gradient(0deg, rgba(0, 133, 255, 0.29), rgba(0, 133, 255, 0.29));
+$darkLG: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+$greyLG: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
 
 @mixin fRow {
   display: flex;
@@ -33,7 +36,6 @@ $padding20: 20px;
   justify-content: space-between;
   align-self: center;
   flex-direction: column;
-  
   border-radius: $borderRaduis;
   border: 2px solid linear-gradient(to-left, $buttonText 100%, $buttonText 0%);
   background: linear-gradient(180deg, rgba(185, 251, 255, 0.2) 0%, rgba(227, 220, 255, 0.2) 100%);

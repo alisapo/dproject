@@ -95,7 +95,7 @@ const MainSection = () => {
             </div>
             <button className="install">install</button>
           </div>
-          <div className="long-options">
+          <div className="long-options-hide">
             <div className="long-text">
               <h6 className="section-header">Aliquam sit</h6>
               <p className="section-long-text">{item.text_1}</p>
