@@ -128,10 +128,12 @@ const MainSection = () => {
               })}
             </div>
             <button className="install" onMouseOver={() => uninstallApp(item.id)}>
-              {installState ?
-                (JSON.parse(installState).includes(
-                  (item.id).toString()) ?
-                    'uninstall' : 'installed')
+              {item.rating >= 4.5 ?
+                (installState ?
+                  (JSON.parse(installState).includes(
+                    (item.id).toString()) ?
+                      'uninstall' : 'installed')
+                  : 'installed')
                 : 'install'}
             </button>
           </div>
