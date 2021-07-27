@@ -5,47 +5,50 @@ import FilterSection from '../FilterSection/FilterSection';
 import './mainsection.scss';
 
 type Tdata = {
-  id: 'string',
-  icon: 'string',
-  title: 'string',
-  author: 'string',
-  rating: 0,
-  address: 'string',
-  released: 'string',
-  downloads: 0,
-  description: 'string',
-  text_1: 'string',
-  text_2: 'string',
-  text_3: 'string',
-  text_4: 'string',
-  text_5: 'string',
-  text_6: 'string',
-  text_7: 'string',
-  text_8: 'string',
-  text_9: 'string',
+  id: string,
+  icon: string,
+  title: string,
+  author: string,
+  rating: number,
+  address: string,
+  released: string,
+  downloads: number,
+  description: string,
+  text_1: string,
+  text_2: string,
+  text_3: string,
+  text_4: string,
+  text_5: string,
+  text_6: string,
+  text_7: string,
+  text_8: string,
+  text_9: string,
   tags: []
 };
 
 type Ttags = {
-  id: 'string',
-  name:'string'
+  id: string,
+  name:string
 };
 
 const MainSection = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Tdata[]>([]);
   const [tags, setTags] = useState<Ttags[]>([]);
   const [opened, setOpened] = useState<string[]>([]);
+  const [installState, setInstallState] = useState<string | null>(
+    localStorage.getItem('installState')
+  );
 
   useEffect(() => {
     fetch('https://dapplets-hiring-api.herokuapp.com/api/v1/dapplets?limit=20&start=0&filter=[{%22property%22:%22title%22,%22value%22:%22privacy%22}]&sort=[{%22property%22:%22title%22,%22direction%22:%22ASC%22}]')
       .then(res => res.json())
       .then(res => setData(res.data))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
 
     fetch('https://dapplets-hiring-api.herokuapp.com/api/v1/tags')
       .then(res => res.json())
       .then(res => setTags(res.data))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }, []);
 
   const showHideOptions = (target: string) => {
@@ -57,6 +60,20 @@ const MainSection = () => {
       );
     } else {
       setOpened([...opened, target]);
+    }
+  }
+
+  const uninstallApp = (id: string) => {
+    if (installState) {
+      let parcedKeysArr: string[] = JSON.parse(installState);
+      if (parcedKeysArr.includes(id)) return;
+
+      parcedKeysArr.push(id);
+      localStorage.setItem('installState', JSON.stringify(parcedKeysArr));
+      setInstallState(JSON.stringify(parcedKeysArr));
+    } else {
+      localStorage.setItem('installState', JSON.stringify([id]));
+      setInstallState(JSON.stringify([id]));
     }
   }
 
@@ -110,7 +127,13 @@ const MainSection = () => {
                : null)
               })}
             </div>
-            <button className="install">install</button>
+            <button className="install" onMouseOver={() => uninstallApp(item.id)}>
+              {installState ?
+                (JSON.parse(installState).includes(
+                  (item.id).toString()) ?
+                    'uninstall' : 'installed')
+                : 'install'}
+            </button>
           </div>
           <div className={
             opened.includes(item.id) ?
