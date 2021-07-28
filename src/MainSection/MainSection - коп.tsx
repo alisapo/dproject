@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+import Draggable, { DraggableCore } from 'react-draggable';
 
 import FilterSection from '../FilterSection/FilterSection';
 
@@ -33,7 +35,7 @@ type Ttags = {
   name: string
 };
 
-const MainSection = () => {
+const MainSection = (props: any) => {
   const [data, setData] = useState<Tdata[]>([]);
   const [tags, setTags] = useState<Ttags[]>([]);
   const [opened, setOpened] = useState<string[]>([]);
@@ -79,35 +81,28 @@ const MainSection = () => {
     }
   }
 
-  const handleDragEnd = (result: any) => {
-    if (!result.destination) return;
+  const onStart = (e: any) => {
+    // e.preventDefault();
+    // e.stopPropagation();
+  }
 
-    const items = Array.from(data);
-    const [reorderedItem] = items.splice(result.source.iindex, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setData(items);
+  const onStop = (e: any) => {
+    // e.preventDefault();
+    // e.stopPropagation();
   }
 
   return (
     <div className="main-section">
       <FilterSection />
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="droppable1">
-          {(provided): any => (
-            <div className="main-section"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
               {data ?
                 data.map((item: Tdata, index) => {
                   return (
-                    <Draggable draggableId={item.id} index={index} key={item.id}>
-                      {(provided): any => (
+                    <Draggable
+                      axis="y"
+                      onStart={(e) => onStart(e.stopPropagation())}
+                      onStop={(e) => onStop(e.stopPropagation())}
+                    >
                         <div
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
                           className="item"
                           key={item.id}
                           onClick={() => { showHideOptions(item.id) }}
@@ -221,14 +216,9 @@ const MainSection = () => {
                             </div>
                           </div>
                         </div>
-                      )}
                     </Draggable>
                   )
                 }) : null}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
     </div>
   )
 }
