@@ -43,7 +43,7 @@
   @include flexAlign;
   flex-wrap: wrap;
   width: 150px;
-  .tag {
+  .my-tag {
     @include flexAlign;
     justify-content: space-between;
     cursor: pointer;
@@ -60,8 +60,21 @@
   }
 }
 
+.comm-tag {
+  @extend .my-tag;
+  background: $communityTag !important;
+}
+
 .install {
   background: $backButtonInst;
+}
+
+.installed {
+  background: $backButtonInstalled;
+}
+
+.uninstall {
+  background: $hoverBackButton;
 }
 
 .long-options {
