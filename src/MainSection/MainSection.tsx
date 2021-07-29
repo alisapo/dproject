@@ -40,7 +40,9 @@ const MainSection = () => {
   const [installState, setInstallState] = useState<string | null>(
     localStorage.getItem('installState')
   );
+  const [dragging, setDragging] = useState('');
 
+  //fetch data
   useEffect(() => {
     fetch('https://dapplets-hiring-api.herokuapp.com/api/v1/dapplets?limit=20&start=0&filter=[{%22property%22:%22title%22,%22value%22:%22privacy%22}]&sort=[{%22property%22:%22title%22,%22direction%22:%22ASC%22}]')
       .then(res => res.json())
@@ -53,6 +55,7 @@ const MainSection = () => {
       .catch(err => console.error(err));
   }, []);
 
+  //show/hide more options of a list item
   const showHideOptions = (target: string) => {
     if (opened.includes(target)) {
       setOpened(
@@ -65,7 +68,10 @@ const MainSection = () => {
     }
   }
 
-  const uninstallApp = (id: string) => {
+  //hover action for uninstall button
+  const uninstallApp = (e: any, id: string) => {
+    if (e.target.textContent === 'install') return;
+
     if (installState) {
       let parcedKeysArr: string[] = JSON.parse(installState);
       if (parcedKeysArr.includes(id)) return;
@@ -79,30 +85,45 @@ const MainSection = () => {
     }
   }
 
+  //start drag a list item
+  const handleDragStart = (result: any) => {
+    setDragging(result.draggableId);
+  }
+
+  //dropped the list item
   const handleDragEnd = (result: any) => {
     if (!result.destination) return;
 
     const items = Array.from(data);
-    const [reorderedItem] = items.splice(result.source.iindex, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
+    const [removed] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, removed);
 
     setData(items);
+    setDragging('');
   }
 
   return (
     <div className="main-section">
       <FilterSection />
-      <DragDropContext onDragEnd={handleDragEnd}>
+      <DragDropContext
+        onDragEnd={handleDragEnd}
+        onDragStart={handleDragStart}
+      >
         <Droppable droppableId="droppable1">
           {(provided): any => (
-            <div className="main-section"
+            <div
+              className="main-section"
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
               {data ?
-                data.map((item: Tdata, index) => {
+                data.map((item: Tdata, index: number) => {
                   return (
-                    <Draggable draggableId={item.id} index={index} key={item.id}>
+                    <Draggable
+                      draggableId={item.id}
+                      index={index}
+                      key={item.id}
+                    >
                       {(provided): any => (
                         <div
                           {...provided.draggableProps}
@@ -114,11 +135,16 @@ const MainSection = () => {
                         >
                           <div className="short-options">
                             <div className="drag">
-                              <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect y="0.5" width="18" height="1" fill="#BBBBBB" />
-                                <rect y="4.5" width="18" height="1" fill="#BBBBBB" />
-                                <rect y="8.5" width="18" height="1" fill="#BBBBBB" />
-                              </svg>
+                              {item.id === dragging ?
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <rect x="0.5" y="0.5" width="17" height="17" rx="3.5" fill="white" stroke="#BBBBBB" />
+                                  <rect x="5" y="5" width="8" height="8" rx="2" fill="#0085FF" />
+                                </svg>
+                                : <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect y="0.5" width="18" height="1" fill="#BBBBBB" />
+                                    <rect y="4.5" width="18" height="1" fill="#BBBBBB" />
+                                    <rect y="8.5" width="18" height="1" fill="#BBBBBB" />
+                                  </svg>}
                             </div>
                             <div className="img-item">
                               <img
@@ -162,7 +188,7 @@ const MainSection = () => {
                                     'uninstall' : 'installed')
                                   : 'installed')
                                 : 'install'}
-                              onMouseOver={() => uninstallApp(item.id)}
+                              onMouseOver={(e: any) => uninstallApp(e, item.id)}
                             >
                               {item.rating >= 4.5 ?
                                 (installState ?
@@ -225,6 +251,7 @@ const MainSection = () => {
                     </Draggable>
                   )
                 }) : null}
+              {provided.placeholder}
             </div>
           )}
         </Droppable>
