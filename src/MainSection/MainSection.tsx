@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import {
+  DragDropContext,
+  Droppable,
+  Draggable
+} from 'react-beautiful-dnd';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
 
 import FilterSection from '../FilterSection/FilterSection';
 
@@ -44,7 +49,7 @@ const MainSection = () => {
 
   //fetch data
   useEffect(() => {
-    fetch('https://dapplets-hiring-api.herokuapp.com/api/v1/dapplets?limit=20&start=0&filter=[{%22property%22:%22title%22,%22value%22:%22privacy%22}]&sort=[{%22property%22:%22title%22,%22direction%22:%22ASC%22}]')
+    fetch('https://dapplets-hiring-api.herokuapp.com/api/v1/dapplets?limit=7&start=0') //&filter=[{%22property%22:%22title%22,%22value%22:%22privacy%22}]&sort=[{%22property%22:%22title%22,%22direction%22:%22ASC%22}]')
       .then(res => res.json())
       .then(res => setData(res.data))
       .catch(err => console.error(err));
@@ -68,7 +73,7 @@ const MainSection = () => {
     }
   }
 
-  //hover action for uninstall button
+  //hover action for installed button
   const uninstallApp = (e: any, id: string) => {
     if (e.target.textContent === 'install') return;
 
@@ -85,7 +90,7 @@ const MainSection = () => {
     }
   }
 
-  //start drag a list item
+  //start to drag a list item
   const handleDragStart = (result: any) => {
     setDragging(result.draggableId);
   }
@@ -101,6 +106,15 @@ const MainSection = () => {
     setData(items);
     setDragging('');
   }
+
+  const { loading, items, hasNextPage, error, loadMore }: any = useInfiniteScroll;
+  const [sentryRef] = useInfiniteScroll({
+    loading,
+    hasNextPage,
+    onLoadMore: loadMore,
+    disabled: !!error,
+    rootMargin: '0px 0px 400px 0px',
+  });
 
   return (
     <div className="main-section">
@@ -256,6 +270,11 @@ const MainSection = () => {
           )}
         </Droppable>
       </DragDropContext>
+      {(loading || hasNextPage) && (
+        <div ref={sentryRef}>
+          loading
+        </div>
+      )}
     </div>
   )
 }
